@@ -51,9 +51,11 @@ public class UserController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/test")
-    public boolean test() {
-        return true;
+    @SecurityRequirement(name = "bearer")
+    @GetMapping("/getToken")
+    public String Gettoken() {
+        log.info("GET /api/user/getToken");
+        return userLoginUseCase.getToken();
     }
 
 }

@@ -1,7 +1,9 @@
 package hiru.demospringboot.controller;
 
 
+import hiru.demospringboot.dto.SomethingDto;
 import hiru.demospringboot.dto.SomethingWithoutIdDto;
+import hiru.demospringboot.useCase.SomethingUseCase.SomethingCreateUseCase;
 import hiru.demospringboot.useCase.SomethingUseCase.SomethingFindAllUseCase;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +18,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/something")
 public class SomethingController {
-    /*
+
     private final SomethingCreateUseCase somethingCreateUseCase;
+    /*
     private final SomethingFindByIdUseCase somethingFindByIdUseCase;
     private final SomethingUpdateUseCase somethingUpdateUseCase;
     private final SomethingDeleteUseCase somethingDeleteUseCase;
@@ -25,13 +28,14 @@ public class SomethingController {
 
     private final SomethingFindAllUseCase somethingFindAllUseCase;
 
-    /*
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public SomethingDto create(@RequestBody SomethingDto somethingDto) {
         log.info("POST /api/something {}", somethingDto);
         return somethingCreateUseCase.create(somethingDto);
     }
+    /*
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping

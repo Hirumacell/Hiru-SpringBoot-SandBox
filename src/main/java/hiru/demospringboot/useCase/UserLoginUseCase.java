@@ -55,6 +55,10 @@ public class UserLoginUseCase {
         return passwordEncoder.encode(password);
     }
 
+    public String getToken() {
+        JwtUtil jwtUtil = new JwtUtil();
+        return jwtUtil.createToken();
+    }
 
     public UserDto register(UserDto dto) {
         dto.setPassword(HashPassword(dto.getPassword()));
