@@ -14,3 +14,9 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**");
     }
 }
+
+/*
+public class WebConfig {
+
+}
+*/

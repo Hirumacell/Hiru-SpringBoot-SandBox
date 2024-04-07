@@ -17,10 +17,10 @@ import java.util.List;
 public class HeaderFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
+        
         String path = request.getRequestURI();
 
-        List<String> noAuthRequiredList = List.of("/login", "/register", "swagger", "/v3/api-docs", "/article_by_id/", "/article/all");
+        List<String> noAuthRequiredList = List.of("/login", "/register", "swagger", "/v3/api-docs", "/api/user/test"); //, "/api/something/GetNameAndDescription"
 
         boolean noAuth = false;
 
@@ -39,16 +39,17 @@ public class HeaderFilter extends OncePerRequestFilter {
         JwtUtil jwtUtil = new JwtUtil();
         Claims claims = jwtUtil.resolveClaims(request);
 
+
         try {
-            if (claims == null || !jwtUtil.validateClaims(claims)) {
-                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token invalid");
+            if (claims != null) {
+                filterChain.doFilter(request, response);
+            } else {
+                response.sendError(401, "Token invalid v1");
             }
-            request.setAttribute("Utilisateur_id", jwtUtil.getId(claims));
-            filterChain.doFilter(request, response);
 
 
         } catch (Exception e) {
-            response.sendError(401, "Token invalid");
+            response.sendError(401, "Token invalid v2");
         }
     }
 }

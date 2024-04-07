@@ -4,6 +4,7 @@ import hiru.demospringboot.controller.response.AuthResponse;
 import hiru.demospringboot.dto.UserDto;
 import hiru.demospringboot.dto.UserLoginDto;
 import hiru.demospringboot.useCase.UserLoginUseCase;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,20 @@ public class UserController {
     public UserDto register(@RequestBody UserDto userDto) {
         log.info("POST /api/user/register");
         return userLoginUseCase.register(userDto);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @SecurityRequirement(name = "bearer")
+    @GetMapping("/checkToken")
+    public boolean CheckUserToken() {
+        log.info("GET /api/user/checkToken");
+        return true;
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/test")
+    public boolean test() {
+        return true;
     }
 
 }

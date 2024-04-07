@@ -3,6 +3,7 @@ package hiru.demospringboot.controller;
 
 import hiru.demospringboot.dto.SomethingWithoutIdDto;
 import hiru.demospringboot.useCase.SomethingUseCase.SomethingFindAllUseCase;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -45,17 +46,24 @@ public class SomethingController {
         log.info("GET /api/something/GetSpecificName");
         return somethingFindByIdUseCase.findSpecificName();
     }
-
     */
     @ResponseStatus(HttpStatus.OK)
+    @SecurityRequirement(name = "bearer")
     @GetMapping("/GetNameAndDescription")
     public List<SomethingWithoutIdDto> findNameAndDescription() {
         log.info("GET /api/something/GetNameAndDescription");
         return somethingFindAllUseCase.findNameAndDescription();
     }
 
-    /*
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/findNameAndDescriptionUnsecure")
+    public List<SomethingWithoutIdDto> findNameAndDescriptionUnsecure() {
+        log.info("GET /api/something/GetNameAndDescription");
+        return somethingFindAllUseCase.findNameAndDescription();
+    }
+
+    /*
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public SomethingDto findById(@PathVariable Long id) {

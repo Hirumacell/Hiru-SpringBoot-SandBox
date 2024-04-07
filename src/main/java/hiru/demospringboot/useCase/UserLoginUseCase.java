@@ -49,17 +49,22 @@ public class UserLoginUseCase {
 
     }
 
-    /*
+
     public String HashPassword(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode(password);
     }
-    */
+
 
     public UserDto register(UserDto dto) {
-        //dto.setPassword(HashPassword(dto.getPassword()));
+        dto.setPassword(HashPassword(dto.getPassword()));
         UserEntity entity = mapper.toEntity(dto);
         UserEntity saved = repository.save(entity);
         return mapper.toDto(saved);
+    }
+
+    public boolean checkToken(String token) {
+        JwtUtil jwtUtil = new JwtUtil();
+        return jwtUtil.checkToken(token);
     }
 }

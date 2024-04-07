@@ -83,6 +83,15 @@ public class JwtUtil {
         }
     }
 
+    public boolean checkToken(String token) {
+        try {
+            Claims claims = parseJwtClaims(token);
+            return validateClaims(claims);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public String getUsername(Claims claims) { return claims.get("Username").toString();}
 
     public String getId(Claims claims) {
