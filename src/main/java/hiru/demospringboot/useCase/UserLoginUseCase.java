@@ -38,7 +38,7 @@ public class UserLoginUseCase {
         if (User.getUsername().equals(user.getUsername()) && passwordEncoder.matches(user.getUsername(), User.getPassword())) {
             JwtUtil jwtUtil = new JwtUtil();
 
-            String token = jwtUtil.createToken();
+            String token = jwtUtil.createToken(User);
 
             AuthResponse authResponse = new AuthResponse();
             authResponse.setToken(token);
@@ -55,10 +55,12 @@ public class UserLoginUseCase {
         return passwordEncoder.encode(password);
     }
 
+    /*
     public String getToken() {
         JwtUtil jwtUtil = new JwtUtil();
         return jwtUtil.createToken();
     }
+     */
 
     public UserDto register(UserDto dto) {
         dto.setPassword(HashPassword(dto.getPassword()));
@@ -70,5 +72,14 @@ public class UserLoginUseCase {
     public boolean checkToken(String token) {
         JwtUtil jwtUtil = new JwtUtil();
         return jwtUtil.checkToken(token);
+    }
+
+    public UserLoginDto getUser(String token) {
+
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - " + token);
+        //System.out.println("UserId - " + UserId);
+
+        return null;
+
     }
 }

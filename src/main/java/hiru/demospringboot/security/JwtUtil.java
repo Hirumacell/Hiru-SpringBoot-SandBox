@@ -1,5 +1,6 @@
 package hiru.demospringboot.security;
 
+import hiru.demospringboot.entity.UserEntity;
 import hiru.demospringboot.repository.UserRepository;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,11 +9,11 @@ import org.springframework.stereotype.Component;
 import javax.naming.AuthenticationException;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @Component
 public class JwtUtil {
-
 
     private final String secret_key = "QTo5RQ2p0E";
     private long accessTokenValidity = 24 * 60 * 60 * 1000;
@@ -22,12 +23,20 @@ public class JwtUtil {
     private final String TOKEN_HEADER = "Authorization";
     private final String TOKEN_PREFIX = "Bearer ";
 
+    private UserRepository UserRepo;
+
+
     public JwtUtil() {
         jwtParser = Jwts.parser().setSigningKey(secret_key);
     }
 
-    public String createToken() {
+    public String createToken(UserEntity user) {
+        System.out.println("UserEntity -" + user);
         Claims claims = Jwts.claims();
+
+        claims.put("UserId", user.getId());
+
+
         Date tokenCreateTime = new Date();
         Date tokenValidity = new Date(tokenCreateTime.getTime() + TimeUnit.MINUTES.toMillis(accessTokenValidity));
         return Jwts.builder()

@@ -3,6 +3,7 @@ package hiru.demospringboot.controller;
 import hiru.demospringboot.controller.response.AuthResponse;
 import hiru.demospringboot.dto.UserDto;
 import hiru.demospringboot.dto.UserLoginDto;
+import hiru.demospringboot.repository.UserRepository;
 import hiru.demospringboot.useCase.UserLoginUseCase;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +51,18 @@ public class UserController {
         return true;
     }
 
+
+    // Get Header of the request
+    @ResponseStatus(HttpStatus.OK)
+    @SecurityRequirement(name = "bearer")
+    @GetMapping("/me")
+    public String GetHeader(@RequestHeader (name = "Authorization") String authorizationHeader) {
+        log.info("GET /api/user/me");
+        return authorizationHeader;
+    }
+
+
+    /*
     @ResponseStatus(HttpStatus.OK)
     @SecurityRequirement(name = "bearer")
     @GetMapping("/getToken")
@@ -57,5 +70,6 @@ public class UserController {
         log.info("GET /api/user/getToken");
         return userLoginUseCase.getToken();
     }
+    */
 
 }
