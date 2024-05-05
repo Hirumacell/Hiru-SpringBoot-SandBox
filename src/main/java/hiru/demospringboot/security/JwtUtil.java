@@ -31,11 +31,9 @@ public class JwtUtil {
     }
 
     public String createToken(UserEntity user) {
-        System.out.println("UserEntity -" + user);
+
         Claims claims = Jwts.claims();
-
         claims.put("UserId", user.getId());
-
 
         Date tokenCreateTime = new Date();
         Date tokenValidity = new Date(tokenCreateTime.getTime() + TimeUnit.MINUTES.toMillis(accessTokenValidity));
@@ -50,7 +48,7 @@ public class JwtUtil {
         return jwtParser.parseClaimsJws(token).getBody();
     }
 
-    public Claims resolveClaims(HttpServletRequest req) {
+        public Claims resolveClaims(HttpServletRequest req) {
         try {
             String token = resolveToken(req);
             if (token != null) {

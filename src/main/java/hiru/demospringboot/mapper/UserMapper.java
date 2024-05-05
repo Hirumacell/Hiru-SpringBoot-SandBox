@@ -1,6 +1,7 @@
 package hiru.demospringboot.mapper;
 
 import hiru.demospringboot.dto.UserDto;
+import hiru.demospringboot.dto.UserLoginDto;
 import hiru.demospringboot.entity.UserEntity;
 import org.springframework.stereotype.Component;
 
@@ -30,12 +31,11 @@ public class UserMapper {
     }
 
     //UserLoginDto toDto(UserEntity entity)
-    public UserDto LogtoDto(UserEntity entity) {
+    public UserLoginDto LogtoDto(UserEntity entity) {
         if (entity == null) {
             return null;
         }
-        UserDto dto = new UserDto();
-        dto.setId(entity.getId());
+        UserLoginDto dto = new UserLoginDto();
         dto.setUsername(entity.getUsername());
         dto.setPassword(entity.getPassword());
         return dto;

@@ -74,12 +74,11 @@ public class UserLoginUseCase {
         return jwtUtil.checkToken(token);
     }
 
-    public UserLoginDto getUser(String token) {
+    public UserDto getUser(String id) {
 
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - " + token);
-        //System.out.println("UserId - " + UserId);
+        long userId = Integer.parseInt(id);
+        UserEntity entity = repository.findById(userId).get();
 
-        return null;
-
+        return mapper.toDto(entity);
     }
 }

@@ -42,6 +42,7 @@ public class HeaderFilter extends OncePerRequestFilter {
 
         try {
             if (claims != null) {
+                request.setAttribute("Utilisateur_id", jwtUtil.getId(claims));
                 filterChain.doFilter(request, response);
             } else {
                 response.sendError(401, "Token invalid v1");

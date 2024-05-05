@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+    private final UserRepository userRepository;
 
     private final UserLoginUseCase userLoginUseCase;
 /*
@@ -56,9 +57,9 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @SecurityRequirement(name = "bearer")
     @GetMapping("/me")
-    public String GetHeader(@RequestHeader (name = "Authorization") String authorizationHeader) {
+    public UserDto GetUserInfo(@RequestAttribute("Utilisateur_id") String id) {
         log.info("GET /api/user/me");
-        return authorizationHeader;
+        return userLoginUseCase.getUser(id);
     }
 
 
