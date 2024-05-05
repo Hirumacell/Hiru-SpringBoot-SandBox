@@ -20,7 +20,7 @@ public class HeaderFilter extends OncePerRequestFilter {
         
         String path = request.getRequestURI();
 
-        List<String> noAuthRequiredList = List.of("/login", "/register", "swagger", "/v3/api-docs", "/api/something/findNameAndDescriptionUnsecure", "/api/something"); //, "/api/something/GetNameAndDescription"
+        List<String> noAuthRequiredList = List.of("/login", "/register", "swagger", "/v3/api-docs", "/api/something/findNameAndDescriptionUnsecure", "/api/something", "/api/post"); //, "/api/something/GetNameAndDescription"
 
         boolean noAuth = false;
 

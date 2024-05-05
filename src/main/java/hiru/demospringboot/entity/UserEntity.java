@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Set;
+
 @Entity
 @ToString
 @Getter
@@ -16,6 +18,9 @@ public class UserEntity {
     private Long id;
     private String username;
     private String password;
+
+    @OneToMany(mappedBy = "author")
+    private Set<PostEntity> posts;
 
     public UserEntity() {
     }

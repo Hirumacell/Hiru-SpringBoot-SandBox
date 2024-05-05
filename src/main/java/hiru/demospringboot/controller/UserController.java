@@ -61,8 +61,7 @@ public class UserController {
         log.info("GET /api/user/me");
         return userLoginUseCase.getUser(id);
     }
-
-
+    
     /*
     @ResponseStatus(HttpStatus.OK)
     @SecurityRequirement(name = "bearer")
