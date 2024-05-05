@@ -1,5 +1,6 @@
 package hiru.demospringboot.mapper;
 
+import hiru.demospringboot.dto.AddPostDto;
 import hiru.demospringboot.dto.PostDto;
 import hiru.demospringboot.dto.UserWithPostDto;
 import hiru.demospringboot.entity.PostEntity;
@@ -23,12 +24,32 @@ public class PostMapper {
         return dto;
     }
 
+    public AddPostDto toAddPostDto(PostEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+        AddPostDto dto = new AddPostDto();
+        dto.setTitle(entity.getTitle());
+        dto.setContent(entity.getContent());
+        return dto;
+    }
+
     public PostEntity toEntity(PostDto dto) {
         if (dto == null) {
             return null;
         }
         PostEntity entity = new PostEntity();
         entity.setId(dto.getId());
+        entity.setTitle(dto.getTitle());
+        entity.setContent(dto.getContent());
+        return entity;
+    }
+
+    public PostEntity toEntity(AddPostDto dto) {
+        if (dto == null) {
+            return null;
+        }
+        PostEntity entity = new PostEntity();
         entity.setTitle(dto.getTitle());
         entity.setContent(dto.getContent());
         return entity;
@@ -47,6 +68,17 @@ public class PostMapper {
                 .map(this::toDto)
                 .collect(Collectors.toSet()));
 
+        return dto;
+    }
+
+    public PostDto toPostDto(PostEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+        PostDto dto = new PostDto();
+        dto.setId(entity.getId());
+        dto.setTitle(entity.getTitle());
+        dto.setContent(entity.getContent());
         return dto;
     }
 }

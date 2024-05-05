@@ -75,7 +75,6 @@ public class UserLoginUseCase {
     }
 
     public UserDto getUser(String id) {
-
         long userId = Integer.parseInt(id);
         UserEntity entity = repository.findById(userId).get();
 

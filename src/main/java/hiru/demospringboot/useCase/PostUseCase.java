@@ -1,5 +1,6 @@
 package hiru.demospringboot.useCase;
 
+import hiru.demospringboot.dto.AddPostDto;
 import hiru.demospringboot.dto.PostDto;
 import hiru.demospringboot.dto.UserWithPostDto;
 import hiru.demospringboot.entity.PostEntity;
@@ -18,10 +19,10 @@ public class PostUseCase {
     private final PostRepository postRepository;
     private final PostMapper postMapper;
 
-    public PostDto create(PostDto postDto) {
+    public AddPostDto create(AddPostDto postDto) {
         PostEntity postEntity = postMapper.toEntity(postDto);
         postEntity = postRepository.save(postEntity);
-        return postMapper.toDto(postEntity);
+        return postMapper.toAddPostDto(postEntity);
     }
 
     public List<UserWithPostDto> findAll() {
@@ -37,5 +38,23 @@ public class PostUseCase {
                 .collect(Collectors.toList());
 
         return Listtoreturn;
+    }
+
+    public PostDto createWithUserAuth(AddPostDto postDto, String id) {
+        PostEntity postEntity = postMapper.toEntity(postDto);
+        UserEntity userEntity = new UserEntity();
+        long userId = Integer.parseInt(id);
+        userEntity.setId(userId);
+        postEntity.setAuthor(userEntity);
+        postEntity = postRepository.save(postEntity);
+        return postMapper.toPostDto(postEntity);
+    }
+
+    public List<PostDto> findMyPost(String id) {
+        long userId = Integer.parseInt(id);
+        List<PostEntity> postEntityList = postRepository.findByAuthorId(userId);
+        return postEntityList.stream()
+                .map(postMapper::toPostDto)
+                .collect(Collectors.toList());
     }
 }
